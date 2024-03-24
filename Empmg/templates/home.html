@@ -3,12 +3,12 @@
         <meta name="viewport" content="width=device-width">
     </head>
     <body>
-        <h1 class="head1"> Welcome To Emgmg</h1>
+        <h1 class="head1"> Welcome To Empmg</h1>
         <div class="wow">
         <br>
         <div class="container">
-            <button class="Sign" id="Sign">sign in</button>
-            <button class="Create" id="Create">create account</button>
+            <button onclick="signinnav()" class="Sign" id="Sign">sign in</button>
+            <button onclick="createaccnav()"class="Create" id="Create">create account</button>
         </div>
         <div>
             <img src="https://designpickle.com/wp-content/uploads/2018/05/091021_WhyGraDesIsImpForAnyBus_BlogGra_Inl6-1024x768.jpg" class="Homeimage">
@@ -119,7 +119,19 @@ border:2px solid black;
   transition: 300ms;
 }
 
-
-
+.Sign:hover{
+      background-image: linear-gradient(144deg,#000000, #000000 50%,#000000)
+    }
+    .Create:hover{
+      background-image: linear-gradient(144deg,#000000, #000000 50%,#000000)
+    }
     </style>
+<script>
+    function signinnav() {
+        window.location.href = "{% url 'signin' %}";
+    }
+    function createaccnav() {
+        window.location.href = "{% url 'createaccount' %}";
+    }
+</script>
 </html>

@@ -5,16 +5,10 @@
     <body>
     <h1 class="head1"> Sign in </h1>
     <br>
-    <nav></nav>
-    <form>
-    <div class="usern">
-    <label class="up"for="username">Username:</label>
-    <input type="text" id="userpass" class="userpass" required>
-    </div> 
-    <div class="passn">
-     <label class="up"for="password">Password:</label>
-     <input type="text" class="userpass" id="password" required>
-    </div>
+    <button onclick="homepagenav()" class="Homet" id="Homet">Back to Home</button>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
     <div class="button1">
     <button class="s"type="submit">Login</button>
     </div>
@@ -22,34 +16,43 @@
     <img src="https://www.cpsc.gov/s3fs-public/SmallBusinessResources_HeroImage_7-2-21-2.png" class="signinimg">
     </body>
     <style>
+        input[type="text"], input[type="password"]{
+    border:2px solid black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+form{
+    display: flex;
+    justify-content: center;
+}
+label {
+    color:white; 
+       background-image: linear-gradient(144deg,#746d7c, #341e34 50%,#14c4d4);
+       font-size: large;
+       border:solid black 2px;
+       display:flex;
+       justify-content: center;
+}
     .up{
         color:white; 
        background-image: linear-gradient(144deg,#746d7c, #341e34 50%,#14c4d4);
        font-size: large;
        border:solid black 2px;
     }
-    .userpass{
-        border:2px solid black;
-  border-radius: 8px;
-  box-sizing: border-box;
-  margin-top: 8px;
-    }
-
-        .usern {
-    display: flex;
-    justify-content: center;
-        }
-        .passn {
-         text-align: center;
-        }
      .s{
         color:white; 
        background-image: linear-gradient(144deg,#746d7c, #341e34 50%,#14c4d4);
        font-size: large;
        border:solid black 2px;
        margin-top: 10px;
+       padding-left: 5px;
+       padding-right: 5px;
      }
      .button1{
+        padding-left: 10px;
         display: flex;
     justify-content: center;
      }
@@ -74,5 +77,23 @@ border:solid white 4px;
 body {
             background: linear-gradient(to bottom, #26c3ea, #cfcfd8);
         }
+
+ .Homet{
+        color:white; 
+       background-image: linear-gradient(144deg,#746d7c, #341e34 50%,#14c4d4);
+       font-size: x-large;
+       border:solid black 2px;
+     }
+     .Homet:hover{
+      background-image: linear-gradient(144deg,#000000, #000000 50%,#000000)
+    }
+    .s:hover{
+      background-image: linear-gradient(144deg,#000000, #000000 50%,#000000)
+    }
     </style>
+    <script>
+        function homepagenav() {
+            window.location.href = "{% url 'home' %}";
+        }
+    </script>
 </html>
