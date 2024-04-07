@@ -4,20 +4,55 @@ from .forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm
+from .models import Employee
+from .forms import EmployeeForm
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
+def deleteItem(request, id):
+    item = get_object_or_404(Employee, id=id)
+    item.delete()
+    return redirect('userhome')
+    
+
+   
 def home(request):
     return render(request, 'home.html')
 
 @login_required
 def userhome(request):
     username = request.user.username
-    return render(request, 'userhome.html', {'username': username})
+    employees = Employee.objects.all()
+    return render(request, 'userhome.html', {'username': username,  'employees': employees})
 
-def updatepage(request):
-    return render(request, 'update.html')
 
+def redirect_to_userhome(request):
+    return redirect('userhome')
+
+def updateemployee(request, employ_id):
+    employ = get_object_or_404(Employee, id=employ_id)
+    if request.method == 'POST':
+        employ.name = request.POST.get('name')
+        employ.email = request.POST.get('email')
+        employ.role = request.POST.get('role')
+        employ.save()
+        return redirect('userhome')
+    return render(request, 'update.html', {'employ': employ})
+
+
+@login_required
 def createemp(request):
-    return render(request, 'createemp.html')
+     if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            employee = form.save(commit=False)  # Save the form data but don't commit to the database yet
+            employee.user = request.user  # Associate the employee with the current user
+            employee.save()  # Now save the employee with the associated user
+            return redirect('userhome')  # Redirect to a view displaying the list of employees
+     else:
+        form = EmployeeForm()
+     return render(request, 'createemp.html', {'form': form})
+
 
 def signin(request):
     if request.method == 'POST':
