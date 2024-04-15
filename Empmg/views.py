@@ -8,6 +8,8 @@ from .models import Employee
 from .forms import EmployeeForm
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import Note
 
 def deleteItem(request, id):
     item = get_object_or_404(Employee, id=id)
@@ -15,15 +17,29 @@ def deleteItem(request, id):
     return redirect('userhome')
     
 
-   
 def home(request):
     return render(request, 'home.html')
 
 @login_required
 def userhome(request):
+    notes = Note.objects.all()
     username = request.user.username
     employees = Employee.objects.all()
-    return render(request, 'userhome.html', {'username': username,  'employees': employees})
+    return render(request, 'userhome.html', {'username': username,  'employees': employees, 'notes': notes})
+
+
+def createnote(request):
+    if request.method == 'POST':
+        heading = request.POST.get('heading')
+        content = request.POST.get('content')
+        note = Note.objects.create(heading=heading, content=content)
+        return redirect('userhome')
+    return render(request, 'createnote.html')
+
+def delete_note(request, note_id):
+    note = Note.objects.get(pk=note_id)
+    note.delete()
+    return redirect('userhome')
 
 
 def redirect_to_userhome(request):
@@ -79,6 +95,8 @@ def createacc(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'createaccount.html', {'form': form})
+
+
 
 #future reference for when beginning redirecting pages between one another
 #def logout_view(request):

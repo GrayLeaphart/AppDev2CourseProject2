@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <h1 class="head1">Create Note</h1>
+    <button onclick="backtohome()" class="Homet" id="Homet">Back to Home</button>
+    <form class="form1" method="post">
+        {% csrf_token %}
+        <label for="heading">Task Heading:</label><br>
+        <input type="text" id="heading" name="heading"><br>
+        <label for="content"> Task Content:</label><br>
+        <textarea id="content" name="content"></textarea><br>
+        <button class="w" type="submit">Save Task</button>
+    </form>
+    <img src="https://www.cpsc.gov/s3fs-public/TestingAndCertification_HeroImage_7-2-21-1.png" class="createaccimg">
+</body>
+</html>
+<style>
+.w {
+margin-top: 4px;
+  align-items: center;
+  background-color:darkgreen;
+  border:2px solid black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-left:20px;
+}
+.w span {
+ text-align: center;
+  background-color: rgb(5, 6, 45);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.form1 {
+    border:2px solid black;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-left:650px;
+    margin-right: 650px;   
+    color:aliceblue;
+    font-size:large;
+    z-index: 1;
+    position: absolute;
+    background-image: linear-gradient(144deg,#746d7c, #341e34 50%,#14c4d4);
+  
+}
+
+
+.Homet{
+        color:white; 
+       background-image: linear-gradient(144deg,#746d7c, #341e34 50%,#14c4d4);
+       font-size: x-large;
+       border:solid black 2px;
+       margin-top: 10px;
+       margin-left: 670px;
+ }
+    .Homet:hover{
+      background-image: linear-gradient(144deg,#000000, #000000 50%,#000000)
+    }
+.createaccimg{
+            border:solid white 8px;
+            position:absolute;
+            bottom:0px;
+            width:100%;
+            height:60%;
+            right:300px;
+            left:1px;
+        }
+body {
+            background: linear-gradient(to bottom, #26c3ea, #cfcfd8);
+        }
+.head1{
+    color:aliceblue;
+   text-align:center;
+   background:linear-gradient(to bottom,#052b30,#3b3333);
+   padding:0;
+  margin:0;
+  border:2px solid black;
+  
+        }
+</style>
+<script>
+    function backtohome() {
+        window.location.href = "{% url 'userhome' %}";
+    }
+</script>
+

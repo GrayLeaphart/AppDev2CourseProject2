@@ -10,3 +10,11 @@ class Employee(models.Model):
     class Meta:
         app_label = 'Empmg'
     
+
+class Note(models.Model):
+    heading = models.CharField(max_length=100)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.heading
+
