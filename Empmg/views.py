@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import Note
+import requests
 
 def deleteItem(request, id):
     item = get_object_or_404(Employee, id=id)
@@ -18,7 +19,12 @@ def deleteItem(request, id):
     
 
 def home(request):
-    return render(request, 'home.html')
+    response = requests.get("https://zenquotes.io/api/random")
+    if response.status_code == 200:
+        quote = response.json()[0]["q"]
+    else:
+        quote = "Unable to fetch quote at the moment"
+    return render(request, 'home.html', {"quote": quote})
 
 @login_required
 def userhome(request):
